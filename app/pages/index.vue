@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>歡迎來到我的 Nuxt 4 首頁 🎉</h1>
-    <p>這就是 / 路由對應的頁面。</p>
+    <p class="l">For demo use only</p>
+    <p class="text-sm">請從右上角的功能進入</p>
   </div>
 </template>
 
