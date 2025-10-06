@@ -1,75 +1,42 @@
-# Nuxt Minimal Starter
+# Nuxt PDF Signature Demo ✍️
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A lightweight PDF viewing and signature demo built with **Nuxt 4 + Vue 3**.  
+Created for showcasing front-end interaction design and integration with PDF rendering tools.
 
-## Setup
+---
 
-Make sure to install dependencies:
+## 🔧 Tech Stack
+
+- **Nuxt 4** – Full-stack framework for Vue with hybrid rendering support
+- **Vue 3** – Composition API + Single File Components for a modern architecture
+- **TypeScript** – Type-safe development for maintainability and scalability
+- **Vite** – Fast build tool powering Nuxt’s dev server
+- **Pinia** – Intuitive state management for Vue ecosystem
+- **Vue Router** – Client-side routing between views
+- **Tailwind CSS** – Utility-first CSS framework for rapid UI development
+- **SCSS** – Optional modular styling for fine-grained UI control
+
+---
+
+## 🧩 Plugins & UI Libraries
+
+- **shadcn-vue** – Headless UI components for Vue 3, inspired by shadcn/ui
+- **lucide-vue-next** – Beautiful, customizable icon set for Vue 3
+- **@vueuse/core** – Utility collection for reactive composition patterns
+- **pdf-lib** – Generate and modify PDF files directly in the browser
+- **pdfjs-dist** – PDF rendering engine used for viewing and interaction
+
+---
+
+## 🚀 Project Setup
 
 ```bash
-# npm
+# install dependencies
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+# run development server
 npm run dev
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
+# build for production
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
