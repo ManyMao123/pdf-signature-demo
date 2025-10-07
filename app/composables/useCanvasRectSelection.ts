@@ -161,40 +161,60 @@ export function useCanvasRectSelection(
   let longPressTimer: number | null = null;
   const longPressDuration = 800; // ms
 
-  // 框選模式
-  const isSelectionMode = ref(false);
+  const isSelectionMode = ref(false); // 是否為框選模式
+  const isScrolling = ref(false); // 是否為滑動狀態
+  const threshold = 5; // 判斷是否有滑動(單位:px)
+  let startX = 0;
+  let startY = 0;
 
   function onTouchStart(e: TouchEvent) {
-    if (e.touches.length === 1) {
-      const touch = e.touches[0];
-      if (!touch) return;
-
-      // 開始長按計時
-      longPressTimer = window.setTimeout(() => {
-        isSelectionMode.value = true;
-        isDrawing.value = true;
-        e.preventDefault();
-
-        // 觸發框選的初始點
-        onMouseDown({
-          clientX: touch.clientX,
-          clientY: touch.clientY,
-        } as unknown as MouseEvent);
-      }, longPressDuration);
-    } else {
-      // 多指觸控：取消長按，退出框選
-      if (longPressTimer) clearTimeout(longPressTimer);
-      longPressTimer = null;
-      isDrawing.value = false;
-      isSelectionMode.value = false;
+    if (e.touches.length !== 1) {
+      cancelLongPress();
+      return;
     }
+
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    startX = touch.clientX;
+    startY = touch.clientY;
+    isScrolling.value = false;
+
+    // 開始長按計時
+    longPressTimer = window.setTimeout(() => {
+      isSelectionMode.value = true;
+      isDrawing.value = true;
+      e.preventDefault();
+
+      // 初始化框選起點
+      onMouseDown({
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+      } as MouseEvent);
+    }, longPressDuration);
   }
 
   function onTouchMove(e: TouchEvent) {
-    if (isDrawing.value && e.touches.length === 1 && e.cancelable) {
-      e.preventDefault(); // 阻止單指拖動時滾動
-      const touch = e.touches[0];
-      if (!touch) return;
+    if (e.touches.length !== 1) {
+      cancelLongPress();
+      return;
+    }
+
+    const touch = e.touches[0];
+    if (!touch) return;
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2); // 計算兩點之間的直線距離
+
+    // 使用者滑動距離超過threshold，設定為滑動中
+    if (distance > threshold) {
+      isScrolling.value = true;
+      cancelLongPress();
+    }
+
+    // 框選模式時阻止滾動
+    if (isSelectionMode.value && isDrawing.value && e.cancelable) {
+      e.preventDefault();
       onMouseMove({
         clientX: touch.clientX,
         clientY: touch.clientY,
@@ -203,11 +223,7 @@ export function useCanvasRectSelection(
   }
 
   function onTouchEnd(e: TouchEvent) {
-    // 結束長按計時（還沒進入框選就鬆手）
-    if (longPressTimer) {
-      clearTimeout(longPressTimer);
-      longPressTimer = null;
-    }
+    cancelLongPress();
 
     if (isDrawing.value) {
       const touch = e.changedTouches[0];
@@ -220,6 +236,14 @@ export function useCanvasRectSelection(
 
       isDrawing.value = false;
       isSelectionMode.value = false;
+    }
+  }
+
+  // 取消長按計時器
+  function cancelLongPress() {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      longPressTimer = null;
     }
   }
 
