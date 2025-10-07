@@ -30,7 +30,7 @@
       </CardContent>
     </Card>
     <Card
-      class="w-full md:max-w-[512px] gap-4 lg:gap-6 max-h-[340px] md:max-h-[480px] lg:max-h-[795px]"
+      class="w-full lg:max-w-[512px] gap-4 lg:gap-6 max-h-[340px] md:max-h-[480px] lg:max-h-[795px]"
     >
       <CardHeader>
         <CardTitle class="flex items-center gap-2">
@@ -66,7 +66,7 @@
     </Card>
 
     <Dialog v-model:open="open">
-      <DialogContent class="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>簽名</DialogTitle>
           <DialogDescription>請在下方書寫。</DialogDescription>
@@ -149,9 +149,8 @@ async function downloadPdf() {
 <style lang="scss" scoped>
 .pdf-card {
   width: 100%;
-  // min-width: 640px;
 
-  @media (width > 1280px) {
+  @media (width >= 1024px) {
     width: calc(100% - 512px);
     min-width: 640px;
   }
