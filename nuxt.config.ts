@@ -19,4 +19,11 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
     port: 3000,
   },
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+      extensions: ["vue"],
+    },
+  ],
 });
