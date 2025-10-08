@@ -1,38 +1,36 @@
 <template>
-  <section class="py-4 px-14">
+  <section class="py-4 px-6 md:px-14 bg-primary">
     <nav class="flex items-center justify-between">
-      <NuxtLink to="/" class="flex items-center gap-2">
+      <NuxtLink to="/" class="flex items-center gap-2 text-white">
         <Signature class="h-6 w-6" />
-        <p class="text-xl font-bold">PDF 簽名 DEMO</p>
+        <p class="text-md sm:text-xl font-bold">PDF 簽名 DEMO</p>
       </NuxtLink>
       <NavigationMenu class="hidden lg:block">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuLink href="/" :class="navigationMenuTriggerStyle()">
-              首頁
-            </NavigationMenuLink>
-          </NavigationMenuItem>
+        <NavigationMenuList class="gap-4">
           <NavigationMenuItem>
             <NavigationMenuTrigger>功能</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div class="grid w-[600px] grid-cols-2 p-3">
+              <div class="grid w-[190px] grid-cols-1 p-3">
                 <NavigationMenuLink
                   v-for="feature in features"
                   :key="feature.href"
                   :href="feature.href"
                   class="rounded-md p-3 transition-colors hover:bg-muted/70"
                 >
-                  <div key="{feature.title}">
-                    <p class="mb-1 font-semibold text-foreground">
-                      {{ feature.title }}
-                    </p>
-                    <p class="text-sm text-muted-foreground">
-                      {{ feature.description }}
-                    </p>
-                  </div>
+                  <p class="mb-1 font-semibold text-foreground">
+                    {{ feature.title }}
+                  </p>
+                  <p class="text-sm text-muted-foreground">
+                    {{ feature.description }}
+                  </p>
                 </NavigationMenuLink>
               </div>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink href="/" :class="navigationMenuTriggerStyle()">
+              首頁
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
@@ -46,7 +44,7 @@
         <SheetContent side="top" class="max-h-screen overflow-auto">
           <SheetHeader>
             <SheetTitle>
-              <NuxtLink to="/" class="flex items-center gap-2">
+              <NuxtLink to="/" class="flex items-center gap-2 text-primary">
                 <Signature class="h-6 w-6" />
                 <p class="text-xl font-bold">PDF 簽名 DEMO</p>
               </NuxtLink>
@@ -69,26 +67,17 @@
                       :href="feature.href"
                       class="rounded-md p-3 transition-colors hover:bg-muted/70"
                     >
-                      <div key="{feature.title}">
-                        <p class="mb-1 font-semibold text-foreground">
-                          {{ feature.title }}
-                        </p>
-                        <p class="text-sm text-muted-foreground">
-                          {{ feature.description }}
-                        </p>
-                      </div>
+                      <p class="mb-1 font-semibold text-foreground">
+                        {{ feature.title }}
+                      </p>
+                      <p class="text-sm text-muted-foreground">
+                        {{ feature.description }}
+                      </p>
                     </a>
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-
-            <!-- <div class="mt-6 flex flex-col gap-4">
-                <NuxtLink to="/">
-                  <Button variant="outline"> 首頁 </Button>
-                </NuxtLink>
-                <NuxtLink to="/sign"><Button>簽名</Button> </NuxtLink>
-              </div> -->
           </div>
         </SheetContent>
       </Sheet>
@@ -97,7 +86,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -121,9 +109,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, X, Signature, FilePen } from "lucide-vue-next";
-
-const isOpen = ref(false);
+import { Menu, Signature } from "lucide-vue-next";
 
 const features = [
   {

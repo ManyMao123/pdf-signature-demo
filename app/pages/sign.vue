@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-4 lg:gap-8 w-full h-full flex-col lg:flex-row">
     <Card
-      class="pdf-card w-full h-full gap-4 flex-1 max-h-[480px] md:max-h-[585px] lg:max-h-[795px] lg:gap-6"
+      class="pdf-card w-full h-full gap-4 flex-1 max-h-[480px] lg:max-h-[795px] lg:gap-6"
     >
       <CardHeader>
         <CardTitle class="flex flex-0 items-center gap-2">
@@ -9,8 +9,8 @@
         </CardTitle>
         <CardDescription>行動裝置下，長按以進入框選模式</CardDescription>
       </CardHeader>
-      <CardContent class="flex flex-1 overflow-hidden relative">
-        <div class="flex flex-1 overflow-auto relative">
+      <CardContent class="flex flex-1 overflow-hidden relative pr-2">
+        <div class="flex flex-1 overflow-auto relative pr-2">
           <!-- 避免 SSR 生成的 HTML 與 client 端初次渲染不同 -->
 
           <PdfViewer
@@ -30,37 +30,43 @@
       </CardContent>
     </Card>
     <Card
-      class="w-full lg:max-w-[512px] gap-4 lg:gap-6 max-h-[340px] md:max-h-[480px] lg:max-h-[795px]"
+      class="w-full h-full lg:max-w-[512px] gap-4 lg:gap-6 max-h-[340px] lg:max-h-[795px]"
     >
       <CardHeader>
         <CardTitle class="flex items-center gap-2">
           <PencilLine /> 簽名區
         </CardTitle>
       </CardHeader>
-      <CardContent class="flex flex-col gap-2 overflow-auto">
-        <div
-          v-for="(sign, index) in signBlocks"
-          :key="sign.id"
-          class="relative"
-        >
-          <p>欄位{{ index + 1 }}</p>
-          <Button
-            variant="ghost"
-            class="absolute top-8 right-2 w-[24px] h-[24px] rounded-lg py-0 px-0 cursor-pointer"
-            @click="removeSignBlock(sign.id)"
+      <CardContent class="flex flex-1 flex-col gap-2 overflow-hidden pr-2">
+        <div class="overflow-auto pr-2">
+          <div
+            v-for="(sign, index) in signBlocks"
+            :key="sign.id"
+            class="relative"
           >
-            <X />
-          </Button>
-          <img
-            v-if="sign.signature"
-            class="signature-display"
-            :src="sign.signature"
-            @click="handleSign(sign)"
-          />
-          <div v-else class="signature-display" @click="handleSign(sign)"></div>
+            <p>欄位{{ index + 1 }}</p>
+            <Button
+              variant="ghost"
+              class="absolute top-8 right-2 w-[24px] h-[24px] rounded-lg py-0 px-0 cursor-pointer"
+              @click="removeSignBlock(sign.id)"
+            >
+              <X />
+            </Button>
+            <img
+              v-if="sign.signature"
+              class="signature-display"
+              :src="sign.signature"
+              @click="handleSign(sign)"
+            />
+            <div
+              v-else
+              class="signature-display"
+              @click="handleSign(sign)"
+            ></div>
+          </div>
         </div>
       </CardContent>
-      <CardFooter class="flex gap-4 justify-center md:justify-end">
+      <CardFooter class="flex gap-4 justify-center lg:justify-end">
         <Button @click="downloadPdf">下載PDF</Button>
       </CardFooter>
     </Card>
